@@ -2,19 +2,19 @@ from torch.utils.data import DataLoader
 import torch
 from torch.nn.utils.rnn import pad_sequence
 
-def load_dataset(train_file, test_file, batch_size, seq_len, tokenizer):
+def load_dataset(train_file, test_file, batch_size, tokenizer):
     """
     :param fn: filename for the dataset
     :return: (torch.utils.data.DataLoader, torch.utils.data.DataLoader) for train and test
     :Comment: You don't have to shuffle the test dataset
     """
 
-    train_loader = process_file(train_file, tokenizer)
-    test_loader = process_file(test_file, tokenizer)
+    train_loader = process_file(train_file, tokenizer, batch_size)
+    test_loader = process_file(test_file, tokenizer, batch_size)
 
     return train_loader, test_loader
 
-def process_file(fn, tokenizer):
+def process_file(fn, tokenizer, batch_size=1):
 
     prefilled_vocab = (not word2id == None)
     f = open(fn, 'rt')
@@ -40,4 +40,4 @@ def process_file(fn, tokenizer):
         inputs.append(input)
         labels.append(label)
 
-    return DataLoader(list(zip(inputs, labels)),  batch_size=batch_size), vocab
+    return DataLoader(list(zip(inputs, labels)),  batch_size=batch_size)

@@ -30,6 +30,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Train the Model
 def train(model, train_loader, experiment, hyperparams):
+    print("Training...")
     optimizer = torch.optim.Adam(model.parameters(), lr=hyperparams["learning_rate"])
     loss = nn.CrossEntropyLoss(ignore_index=0)
 
@@ -127,7 +128,7 @@ if __name__ == "__main__":
         embedding_size=hyperparams["embedding_size"],
         num_heads=hyperparams["num_heads"], vocab_size=tokenizer.vocab_size, num_sublayers=hyperparams["num_sublayers"],  seq_len=longformer_config.attention_window[0]).to(device)
 
-    train_loader, test_loader = load_dataset(args.train_file, args.test_file, batch_size=hyperparams["batch_size"], seq_len=hyperparams["seq_len"], tokenizer=tokenizer)
+    train_loader, test_loader = load_dataset(args.train_file, args.test_file, batch_size=hyperparams["batch_size"], tokenizer=tokenizer)
 
     if args.load:
         print("loading saved model...")
