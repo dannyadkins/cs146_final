@@ -26,9 +26,8 @@ def process_file(fn, tokenizer, batch_size=1):
     labels = []
     for line in lines:
         label = []
-        split_line = line.split()
-        input = f'{tokenizer.cls_token}{split_line}{tokenizer.eos_token}'
-        label = f'{split_line}{tokenizer.eos_token}'
+        input = f'{tokenizer.cls_token}{line}{tokenizer.eos_token}'
+        label = f'{line}{tokenizer.eos_token}'
         input = torch.tensor(input.encode()).unsqueeze(0)
         label = torch.tensor(label.encode()).unsqueeze(0)
         inputs.append(input)
