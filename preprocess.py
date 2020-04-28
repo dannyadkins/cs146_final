@@ -2,7 +2,7 @@ from torch.utils.data import DataLoader
 import torch
 from torch.nn.utils.rnn import pad_sequence
 
-def load_dataset(train_file, test_file, batch_size, tokenizer):
+def load_dataset(train_file, test_file, batch_size, tokenizer, seq_len):
     """
     :param fn: filename for the dataset
     :return: (torch.utils.data.DataLoader, torch.utils.data.DataLoader) for train and test
@@ -14,7 +14,7 @@ def load_dataset(train_file, test_file, batch_size, tokenizer):
 
     return train_loader, test_loader
 
-def process_file(fn, tokenizer, batch_size=1):
+def process_file(fn, tokenizer, batch_size=1, seq_len=50):
     f = open(fn, 'rt')
     lines = f.readlines()
     f.close()
@@ -33,7 +33,18 @@ def process_file(fn, tokenizer, batch_size=1):
         inputs.append(input)
         labels.append(label)
 
-    print(len(inputs))
-    print(inputs[2])
+    tensor_inputs = []
+    for input in inputs:
+        tensor_inputs.append(torch.Tensor(input))
+
+    tensor_labels = []
+    for label in labels:
+        tensor_labels.append(torch.Tensor(label))
+
+
+
+    inputs = torch.tensor(pad_sequence(tensor_inputs, batch_first=True))[:, :seq_len]
+    labels = torch.tensor(pad_sequence(tensor_labels, batch_first=True))[:, :seq_len]
+
 
     return DataLoader(list(zip(inputs, labels)),  batch_size=batch_size)
