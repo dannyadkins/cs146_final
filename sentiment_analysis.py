@@ -36,7 +36,7 @@ def train(model, train_loader, experiment, hyperparams):
 
     with experiment.train():
         for epoch in range(0, hyperparams["num_epochs"]):
-            for (inputs, labels, input_lengths, label_lengths) in tqdm(train_loader):
+            for (inputs, labels) in tqdm(train_loader):
                 inputs = inputs.to(device)
                 labels = labels.to(device)
 
@@ -66,7 +66,7 @@ def test(model, test_loader, experiment, hyperparams):
     loss = nn.CrossEntropyLoss(ignore_index=0)
 
     with experiment.test():
-        for (inputs, labels, input_lengths, label_lengths) in tqdm(test_loader):
+        for (inputs, labels) in tqdm(test_loader):
             inputs = inputs.to(device)
             labels = labels.to(device)
             predictions = model.forward(inputs.long())
