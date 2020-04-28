@@ -43,7 +43,7 @@ def train(model, train_loader, experiment, hyperparams):
                 attention_mask = gen_attention_mask(inputs)
                 input_ids, attention_mask = pad_to_window_size(inputs, attention_mask, longformer_config.attention_window[0], tokenizer.pad_token_id)
 
-                predictions = model(input_ids, attention_mask=attention_mask)[0]
+                predictions = model(input_ids.to(device), attention_mask=attention_mask.to(device))[0]
 
                 labels = torch.flatten(labels)
 
