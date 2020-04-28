@@ -1,10 +1,11 @@
+from comet_ml import Experiment
+
 import torch
 from longformer.longformer import Longformer, LongformerConfig
 from longformer.sliding_chunks import pad_to_window_size
 from transformers import RobertaTokenizer
 longformer_config = LongformerConfig.from_pretrained('longformer-base-4096/')
 
-from comet_ml import Experiment
 from preprocess import *
 import argparse
 from model import Transformer
