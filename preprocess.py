@@ -35,11 +35,11 @@ def process_file(fn, tokenizer, batch_size=1, seq_len=50):
 
     tensor_inputs = []
     for input in inputs:
-        tensor_inputs.append(torch.Tensor(input))
+        tensor_inputs.append(torch.Tensor(input.float()))
 
     tensor_labels = []
     for label in labels:
-        tensor_labels.append(torch.Tensor(label))
+        tensor_labels.append(torch.Tensor(label.float()))
 
 
 
