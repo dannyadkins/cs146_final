@@ -98,7 +98,7 @@ def test(model, test_loader, experiment, hyperparams):
         experiment.log_metric("accuracy", accuracy)
 
 def gen_attention_mask(inputs):
-    attention_mask = torch.ones(input_ids.shape, dtype=torch.long, device=input_ids.device) # initialize to local attention
+    attention_mask = torch.ones(inputs.shape, dtype=torch.long, device=inputs.device) # initialize to local attention
     attention_mask[:, [1, 4, 21,]] =  2
     return attention_mask
 
