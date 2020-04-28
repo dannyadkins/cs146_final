@@ -28,8 +28,8 @@ def process_file(fn, tokenizer, batch_size=1):
         label = []
         input = f'{tokenizer.cls_token}{line}{tokenizer.eos_token}'
         label = f'{line}{tokenizer.eos_token}'
-        input = torch.tensor(input.encode()).unsqueeze(0)
-        label = torch.tensor(label.encode()).unsqueeze(0)
+        input = torch.tensor(input).unsqueeze(0)
+        label = torch.tensor(label).unsqueeze(0)
         inputs.append(input)
         labels.append(label)
 
