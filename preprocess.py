@@ -15,18 +15,12 @@ def load_dataset(train_file, test_file, batch_size, tokenizer):
     return train_loader, test_loader
 
 def process_file(fn, tokenizer, batch_size=1):
-
-    prefilled_vocab = (not word2id == None)
     f = open(fn, 'rt')
     lines = f.readlines()
     f.close()
 
     # TODO: split the whole file (including both training and validation
     # data) into words and create the corresponding vocab dictionary.
-    vocab = {'*PAD*': 0, '*START*': 1}
-    if (prefilled_vocab):
-        vocab = word2id
-    num_inputs = len(lines)
 
     inputs = []
     labels = []
