@@ -34,6 +34,6 @@ def process_file(fn, tokenizer, batch_size=1):
         labels.append(label)
 
     print(len(inputs))
-    print(inputs[0])
+    print(inputs[2])
 
     return DataLoader(list(zip(inputs, labels)),  batch_size=batch_size)
