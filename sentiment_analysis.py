@@ -117,15 +117,15 @@ if __name__ == "__main__":
     # Data Loader (Input Pipeline)
 
     # Initialize your transformer using the hyper-parameters
-    transformer_model = Transformer(
-        model_dim=hyperparams["model_dim"],
-        embedding_size=hyperparams["embedding_size"],
-        num_heads=hyperparams["num_heads"], vocab_size=len(vocab), num_sublayers=hyperparams["num_sublayers"],  seq_len=longformer_config.attention_window[0]).to(device)
 
     longformer_config.attention_mode = 'sliding_chunks'
     longformer_model = Longformer.from_pretrained('longformer-base-4096/', config=longformer_config)
     tokenizer = RobertaTokenizer.from_pretrained('roberta-base')
     tokenizer.max_len = longformer_model.config.max_position_embeddings
+    transformer_model = Transformer(
+        model_dim=hyperparams["model_dim"],
+        embedding_size=hyperparams["embedding_size"],
+        num_heads=hyperparams["num_heads"], vocab_size=tokenizer.vocab_size, num_sublayers=hyperparams["num_sublayers"],  seq_len=longformer_config.attention_window[0]).to(device)
 
     train_loader, test_loader = load_dataset(args.train_file, args.test_file, batch_size=hyperparams["batch_size"], seq_len=hyperparams["seq_len"], tokenizer=tokenizer)
 
