@@ -120,7 +120,7 @@ if __name__ == "__main__":
     # Initialize your transformer using the hyper-parameters
 
     longformer_config.attention_mode = 'sliding_chunks'
-    longformer_model = Longformer.from_pretrained('longformer-base-4096/', config=longformer_config)
+    longformer_model = Longformer.from_pretrained('longformer-base-4096/', config=longformer_config).to(device)
     tokenizer = RobertaTokenizer.from_pretrained('roberta-base')
     tokenizer.max_len = longformer_model.config.max_position_embeddings
     transformer_model = Transformer(
